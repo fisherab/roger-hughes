@@ -1,0 +1,5 @@
+To encryprt the csv file:
+
+zip -e <file without zip suffix> <input csv file>
+
+password is stored in LastPass
