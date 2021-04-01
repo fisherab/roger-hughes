@@ -60,19 +60,30 @@ thisYear = getData(year,['National number', 'EBU rank', 'NGS grade','First name'
 lastYear = getData(year-1,['EBU number', 'EBU rank', 'NGS grade','First name', 'Last name'])
 previousYear = getData(year-2,['EBU number', 'EBU rank', 'NGS grade','First name', 'Last name'])
 
+qualifiers = []
+
+    
+
 for member in thisYear:
     if member in lastYear and floatAny(thisYear[member][percentage]) > floatAny(lastYear[member][percentage]) and floatAny(lastYear[member][percentage]) > 0:
         if floatAny(thisYear[member][percentage]) > 50 and  floatAny(lastYear[member][percentage]) <50:
             if member in previousYear and floatAny(previousYear[member][percentage]) <50:
-                if previousYear[member][mps] in ["Local Master", "Club Master", "Area Master", "District Master", "CountyMaster"]:
-                
-                    print (member, thisYear[member], lastYear[member][percentage], previousYear[member][percentage],
-                                    previousYear[member][mps],  round(floatAny(thisYear[member][percentage]) - floatAny(lastYear[member][percentage]),2) )
-           
-                    
+                if lastYear[member][mps] in ["Local Master", "Club Master", "Area Master", "District Master", "CountyMaster", "Not public on ebu.co.uk"]:
 
-
-
+                    improvement = round(floatAny(thisYear[member][percentage]) - floatAny(lastYear[member][percentage]),2)
+                    person = thisYear[member]
+                    name = person[2] + " " + person[3]
+                    qualifiers.append(( member, name, previousYear[member][mps], person[mps] , previousYear[member][percentage], lastYear[member][percentage], person[percentage],
+                                  improvement))
  
+      
+qualifiers.sort(key=lambda people: people[7], reverse=True)
+
+with open('results.csv','w', newline='') as csvfile:
+    w = csv.writer(csvfile)
+    w.writerow(['EBU num', 'Name', 'Last year MPs', 'This year MPs', 'NGS 2 years ago', 'NGS 1 Year ago', 'NGS Now', 'Improvement'])
+    for q in qualifiers:
+        print (q)
+        w.writerow(q)
  
  
