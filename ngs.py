@@ -3,6 +3,7 @@ from datetime import date
 from glob import glob
 import sys
 
+fifty = 46.0
 year = date.today().year
 mps=0
 percentage=1
@@ -66,8 +67,8 @@ qualifiers = []
 
 for member in thisYear:
     if member in lastYear and floatAny(thisYear[member][percentage]) > floatAny(lastYear[member][percentage]) and floatAny(lastYear[member][percentage]) > 0:
-        if floatAny(thisYear[member][percentage]) > 50 and  floatAny(lastYear[member][percentage]) <50:
-            if member in previousYear and floatAny(previousYear[member][percentage]) <50:
+        if floatAny(thisYear[member][percentage]) > fifty and  floatAny(lastYear[member][percentage]) < fifty:
+            if member in previousYear and floatAny(previousYear[member][percentage]) < fifty:
                 if lastYear[member][mps] in ["Local Master", "Club Master", "Area Master", "District Master", "CountyMaster", "Not public on ebu.co.uk"]:
 
                     improvement = round(floatAny(thisYear[member][percentage]) - floatAny(lastYear[member][percentage]),2)
