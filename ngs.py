@@ -8,7 +8,7 @@ mps=0
 percentage=1
 
 def getData(year, headingsWanted):
-    globPattern = "Hughes "+str(year)+"*"
+    globPattern = "Hughes-"+str(year)+"*"
     files = glob(globPattern)
     if len(files) != 1:
         print("There must be exacly one file matching " + globPattern, file=sys.stderr)
@@ -56,7 +56,7 @@ def floatAny(arg):
     
 thisYear = getData(year,['National number', 'EBU rank', 'NGS grade','First name', 'Last name'])
 lastYear = getData(year-1,['National number', 'EBU rank', 'NGS grade','First name', 'Last name'])
-previousYear = getData(year-2,['EBU number', 'EBU rank', 'NGS grade','First name', 'Last name'])
+previousYear = getData(year-2,['National number', 'EBU rank', 'NGS grade','First name', 'Last name'])
 
 with open('results.csv','w', newline='') as csvfile:
     w = csv.writer(csvfile)
